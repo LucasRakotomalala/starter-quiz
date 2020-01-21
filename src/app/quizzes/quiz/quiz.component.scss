@@ -1,5 +1,9 @@
 @import '../../../styles/card.scss';
 
-h1 {
-    // Add some CSS here! What if you try to change the background?
+h2:hover {
+  background: gray;
+}
+
+.button-card {
+  margin-right: 10px;
 }
