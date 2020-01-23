@@ -42,6 +42,6 @@ export class QuizService {
   }
 
   // getQuizzes(): Quiz[] {
-  //   return this.httpClient.get(this.quizzesUrl);
+  //   return this.httpClient.get(this.quizzesUrl).subscribe();
   // }
 }
