@@ -13,7 +13,7 @@ export class QuizService {
    * https://angular.io/docs/ts/latest/tutorial/toh-pt4.html
    */
 
-   /**
+   /**²
     * The list of quiz.
     * The list is retrieved from the mock.
     */
@@ -41,7 +41,10 @@ export class QuizService {
     this.quizzes$.next(this.quizzes);
   }
 
-  // getQuizzes(): Quiz[] {
-  //   return this.httpClient.get(this.quizzesUrl).subscribe();
-  // }
+  getQuizzes(): Quiz[] {
+    const quizzesFromUrl = this.httpClient.get(this.quizzesUrl);
+    // tslint:disable-next-line:no-shadowed-variable
+    this.quizzes$.subscribe((quizzesFromUrl) => this.quizzes = quizzesFromUrl);
+    return this.quizzes;
+  }
 }
