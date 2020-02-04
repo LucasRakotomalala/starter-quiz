@@ -3,7 +3,7 @@ import { Question } from './question.model';
 export enum theme {
   Actor = 'Actor',
   Sport = 'Sport',
-  Test = 'Test'
+  Test = 'Test',
 }
 
 export interface Quiz {
@@ -11,4 +11,5 @@ export interface Quiz {
     theme?: theme;
     creationDate?: Date;
     questions: Question[];
+    id: string;
 }

@@ -1,24 +1,29 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, of} from 'rxjs';
 import { Quiz } from '../models/quiz.model';
 import { QUIZ_LIST } from '../mocks/quiz-list.mock';
 import { HttpClient } from '@angular/common/http';
 
+interface QuizFromJson {
+  quizzes: Quiz[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class QuizService {
   /**
    * Services Documentation:
    * https://angular.io/docs/ts/latest/tutorial/toh-pt4.html
    */
 
-   /**²
-    * The list of quiz.
-    * The list is retrieved from the mock.
-    */
+  /**
+   * The list of quiz.
+   * The list is retrieved from the mock.
+   */
   private quizzes: Quiz[] = QUIZ_LIST;
-  private quizzesUrl = 'https://api.myjson.com/bins/silu2';
+  private quizzesUrl = 'https://api.myjson.com/bins/13ajhy';
 
   /**
    * Observable which contains the list of the quiz.
@@ -41,10 +46,15 @@ export class QuizService {
     this.quizzes$.next(this.quizzes);
   }
 
-  getQuizzes(): Quiz[] {
-    const quizzesFromUrl = this.httpClient.get(this.quizzesUrl);
-    // tslint:disable-next-line:no-shadowed-variable
-    this.quizzes$.subscribe((quizzesFromUrl) => this.quizzes = quizzesFromUrl);
+  setQuizzesFromUrl(): Quiz[] {
+    this.httpClient.get(this.quizzesUrl).subscribe((quizFromJson: QuizFromJson) => {
+      this.quizzes = quizFromJson.quizzes;
+      this.quizzes$.next(this.quizzes);
+    });
     return this.quizzes;
+  }
+
+  getQuiz(id: number) {
+    return of(QUIZ_LIST.find(quiz => +quiz.id === id));
   }
 }

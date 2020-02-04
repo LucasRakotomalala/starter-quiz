@@ -12,19 +12,21 @@ export const QUESTION_ACTOR: Question = {
         {
             value: 'La grande illusion',
             isCorrect: true,
-        }
+        },
     ]
 };
 
 export const QUIZ_LIST: Quiz[] = [
     {
-        name: 'Les Acteurs', // What's happening if I change this value..?
+        name: 'Les Acteurs',
         theme: theme.Actor,
         questions: [QUESTION_ACTOR],
+        id: '1',
     },
     {
         name: 'Les Sports',
         theme: theme.Sport,
         questions: [],
+        id: '2',
     }
 ];
