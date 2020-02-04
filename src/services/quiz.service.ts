@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, of} from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { Quiz } from '../models/quiz.model';
 import { QUIZ_LIST } from '../mocks/quiz-list.mock';
 import { HttpClient } from '@angular/common/http';
-
-interface QuizFromJson {
-  quizzes: Quiz[];
-}
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +43,8 @@ export class QuizService {
   }
 
   setQuizzesFromUrl(): Quiz[] {
-    this.httpClient.get(this.quizzesUrl).subscribe((quizFromJson: QuizFromJson) => {
-      this.quizzes = quizFromJson.quizzes;
+    this.httpClient.get<{quizzes: Quiz[]}>(this.quizzesUrl).subscribe((quizzes) => {
+      this.quizzes = quizzes.quizzes;
       this.quizzes$.next(this.quizzes);
     });
     return this.quizzes;
