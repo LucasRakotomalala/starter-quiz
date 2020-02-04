@@ -12,13 +12,10 @@
     Questions' number : {{quiz.questions.length}}
   </span>
   <br>
-  <span>
-    Id : {{quiz.id}}
-  </span>
-  <span *ngIf="quiz.creationDate != undefined">
+  <span *ngIf="quiz.date != undefined">
       <br>
       <br>
-    Creation date : {{quiz.creationDate | date:'dd/MM/yyyy HH:mm:ss'}}
+    Creation date : {{quiz.date | date:'dd/MM/yyyy HH:mm:ss'}}
   </span>
   <br>
     <button class="button-card" (click)="selectQuiz()">Select</button>

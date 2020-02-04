@@ -9,7 +9,7 @@ export enum theme {
 export interface Quiz {
     name: string;
     theme?: theme;
-    creationDate?: Date;
+    date?: Date;
     questions: Question[];
     id: string;
 }
