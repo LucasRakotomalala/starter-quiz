@@ -1,18 +1,27 @@
 <div class="card">
-  <h2>Create a new question</h2>
-  <form class="quiz-form" [formGroup]="questionForm">
-  <button class="button-card" (click)="addAnswer()">Add Answer</button>
-  <div class="answer" formArrayName="answers">
-    <div *ngFor="let address of answers.controls; let i=index">
-      <div class="answer-form" [formGroupName]="i">
-        <label>
-          Answer
-          <input type="text" [formControlName]="'value'">
+  <h2>Create a new Question</h2>
+  <form class="question-form" [formGroup]="questionForm">
+    <label for="label">
+      Title :<br>
+      <input class="input-custom" type="text" id="label" [formControlName]="'label'" required>
+    </label>
+    <br>
+    <button class="button-card" (click)="addAnswer()">Add Answer</button>
+    <div class="answer" formArrayName="answers">
+      <div *ngFor="let address of answers.controls; let i=index">
+        <div class="answer-form" [formGroupName]="i">
+          <label>
+            Answer :
+            <input type="text" [formControlName]="'value'">
+            <br>
+            Correct :
+            <input type="checkbox" [formControlName]="'isCorrect'">
+          </label>
           <br>
-          <input type="checkbox" [formControlName]="'isCorrect'">
-        </label>
+        </div>
       </div>
     </div>
-  </div>
+    <button type="submit" class="button-card" (click)="createQuestion()">Create</button>
   </form>
 </div>
+<br><br>{{questionForm.getRawValue() | json}}

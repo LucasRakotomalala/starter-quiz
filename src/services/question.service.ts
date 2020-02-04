@@ -6,7 +6,7 @@ import {BehaviorSubject} from 'rxjs';
   providedIn: 'root'
 })
 export class QuestionService {
-  private questions: Question[];
+  private questions: Question[] = [];
 
   public questions$: BehaviorSubject<Question[]> = new BehaviorSubject(this.questions);
 
