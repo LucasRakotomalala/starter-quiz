@@ -4,9 +4,11 @@
     {{question.label}}
   </h2>
   <span>
-    Title : {{question.label}}
+    <div class="question-list" *ngFor="let answer of question.answers; let i=index">
+      {{i}} - {{answer.value}}
+      <i *ngIf="answer.isCorrect" class="far fa-check-square"></i>
+    </div>
   </span>
-  <br>
   <br>
   <button class="button-card" (click)="deleteQuestion()">Delete</button>
 </div>

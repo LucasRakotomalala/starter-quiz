@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {Question} from '../../../models/question.model';
-import {QuestionService} from '../../../services/question.service';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Question } from '../../../models/question.model';
+import { QuestionService } from '../../../services/question.service';
 
 @Component({
   selector: 'app-question-form',
@@ -20,7 +20,7 @@ export class QuestionFormComponent implements OnInit {
 
   private initializeQuestionForm() {
     this.questionForm = this.formBuilder.group({
-      label: [''],
+      label: ['', Validators.required],
       answers: this.formBuilder.array([])
     });
   }
@@ -35,7 +35,7 @@ export class QuestionFormComponent implements OnInit {
 
   private createAnswer() {
     return this.formBuilder.group({
-      value: '',
+      value: ['', Validators.required],
       isCorrect: false,
     });
   }
@@ -44,7 +44,7 @@ export class QuestionFormComponent implements OnInit {
     if (this.questionForm.valid) {
       console.log('Adding question ..');
 
-      // Now, add your quiz in the list!
+      // Now, add your question in the list!
       this.questionService.addQuestion(questionToCreate);
     }
   }
