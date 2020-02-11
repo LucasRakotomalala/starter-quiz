@@ -1,9 +1,9 @@
 import { Question } from './question.model';
 
 export enum theme {
-  Actor = 'Actor',
-  Sport = 'Sport',
-  Test = 'Test',
+  Actor = 'Acteurs',
+  Sport = 'Sports',
+  Animals = 'Animaux'
 }
 
 export interface Quiz {

@@ -11,8 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { EditQuizComponent } from './quizzes/edit-quiz/edit-quiz.component';
 import { QuestionFormComponent } from './questions/question-form/question-form.component';
-import {QuestionListComponent} from './questions/question-list/question-list.component';
+import { QuestionListComponent } from './questions/question-list/question-list.component';
 import { QuestionComponent } from './questions/question/question.component';
+import { UserComponent } from './users/user/user.component';
+import { UserListComponent } from './users/user-list/user-list.component';
+import { CreateUserComponent } from './users/create-user/create-user.component';
+import { UserFormComponent } from './users/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,10 @@ import { QuestionComponent } from './questions/question/question.component';
     QuestionFormComponent,
     QuestionListComponent,
     QuestionComponent,
+    UserComponent,
+    UserListComponent,
+    CreateUserComponent,
+    UserFormComponent,
   ],
   imports: [
     BrowserModule,
