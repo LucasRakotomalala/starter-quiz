@@ -19,7 +19,8 @@ export class QuizService {
    * The list is retrieved from the mock.
    */
   private quizzes: Quiz[] = QUIZ_LIST;
-  private quizzesUrl = 'https://api.myjson.com/bins/13ajhy';
+  private quizzesUrlTD = 'https://api.myjson.com/bins/13ajhy';
+  private quizzesUrlLocal = 'http://localhost:9428/api/quizzes/';
 
   /**
    * Observable which contains the list of the quiz.
@@ -43,14 +44,20 @@ export class QuizService {
   }
 
   setQuizzesFromUrl(): Quiz[] {
-    this.httpClient.get<{quizzes: Quiz[]}>(this.quizzesUrl).subscribe((quizzes) => {
+    /* this.httpClient.get<{quizzes: Quiz[]}>(this.quizzesUrlTD).subscribe((quizzes) => {
       this.quizzes = quizzes.quizzes;
       this.quizzes$.next(this.quizzes);
+      return this.quizzes;
+    }); */
+    this.httpClient.get<Quiz[]>(this.quizzesUrlLocal).subscribe((quizzes) => {
+      this.quizzes = quizzes;
+      this.quizzes$.next(this.quizzes);
+      return this.quizzes;
     });
     return this.quizzes;
   }
 
   getQuiz(id: number) {
-    return of(QUIZ_LIST.find(quiz => +quiz.id === id));
+    return of(this.quizzes.find(quiz => +quiz.id === id));
   }
 }
