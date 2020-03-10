@@ -9,7 +9,7 @@ import { QuestionService } from '../../../services/question.service';
 })
 export class QuestionListComponent implements OnInit {
 
-  public questionList: Question[] = [];
+  public questionList: Question[] = this.questionService.setQuestionsFromQuizzesUrl();
 
   constructor(public questionService: QuestionService) {
     this.questionService.questions$.subscribe((question) => this.questionList = question);

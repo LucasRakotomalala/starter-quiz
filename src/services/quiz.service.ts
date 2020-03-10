@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
 import { Quiz } from '../models/quiz.model';
-import { QUIZ_LIST } from '../mocks/quiz-list.mock';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -18,9 +17,9 @@ export class QuizService {
    * The list of quiz.
    * The list is retrieved from the mock.
    */
-  private quizzes: Quiz[] = QUIZ_LIST;
+  private quizzes: Quiz[] = [];
   private quizzesUrlTD = 'https://api.myjson.com/bins/13ajhy';
-  private quizzesUrlLocal = 'http://localhost:9428/api/quizzes/';
+  public quizzesUrlLocal = 'http://localhost:9428/api/quizzes/';
 
   /**
    * Observable which contains the list of the quiz.
@@ -45,11 +44,13 @@ export class QuizService {
 
   setQuizzesFromUrl(): Quiz[] {
     /* this.httpClient.get<{quizzes: Quiz[]}>(this.quizzesUrlTD).subscribe((quizzes) => {
-      this.quizzes = quizzes.quizzes;
+      // quizzes.quizzes.forEach(quiz => this.quizzes.push(quiz));
+      // this.quizzes = quizzes.quizzes;
       this.quizzes$.next(this.quizzes);
       return this.quizzes;
     }); */
     this.httpClient.get<Quiz[]>(this.quizzesUrlLocal).subscribe((quizzes) => {
+      // quizzes.forEach(quiz => this.quizzes.push(quiz));
       this.quizzes = quizzes;
       this.quizzes$.next(this.quizzes);
       return this.quizzes;
