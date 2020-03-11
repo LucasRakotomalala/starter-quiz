@@ -30,7 +30,8 @@ export class QuestionService {
     // More info: https://angular.io/tutorial/toh-pt6#the-searchterms-rxjs-subject
     this.questions.push(question);
     this.questions$.next(this.questions);
-    return this.httpClient.post<Question>(urlQuizzes + this.route.snapshot.firstChild.params.id + '/questions/' , question, httpOptions).subscribe();
+    return this.httpClient.post<Question>(urlQuizzes + this.route.snapshot.firstChild.params.id + '/questions/' , question, httpOptions)
+      .subscribe();
   }
 
   setQuestionsFromQuizzesUrl(): Question[] {
