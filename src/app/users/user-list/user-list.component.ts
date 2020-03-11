@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../../models/user.model';
 import {UserService} from '../../../services/user.service';
+import {Quiz} from '../../../models/quiz.model';
+import {urlQuizzes} from '../../../services/const';
 
 @Component({
   selector: 'app-user-list',
@@ -11,6 +13,7 @@ export class UserListComponent implements OnInit {
   public userList: User[] = [];
 
   constructor(public userService: UserService) {
+    this.userService.setUsersFromUrl();
     this.userService.users$.subscribe((user) => this.userList = user);
 
   }

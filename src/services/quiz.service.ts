@@ -3,6 +3,8 @@ import { BehaviorSubject, of } from 'rxjs';
 import { Quiz } from '../models/quiz.model';
 import { HttpClient } from '@angular/common/http';
 
+import {httpOptions, urlQuizzes, urlUsers} from './const';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +21,6 @@ export class QuizService {
    */
   private quizzes: Quiz[] = [];
   private quizzesUrlTD = 'https://api.myjson.com/bins/13ajhy';
-  public quizzesUrlLocal = 'http://localhost:9428/api/quizzes/';
 
   /**
    * Observable which contains the list of the quiz.
@@ -35,11 +36,13 @@ export class QuizService {
     // More info: https://angular.io/tutorial/toh-pt6#the-searchterms-rxjs-subject
     this.quizzes.push(quiz);
     this.quizzes$.next(this.quizzes);
+    return this.httpClient.post<Quiz>(urlQuizzes, quiz, httpOptions).subscribe();
   }
 
   deleteQuiz(quiz: Quiz) {
     this.quizzes = this.quizzes.filter(obj => obj !== quiz);
     this.quizzes$.next(this.quizzes);
+    return this.httpClient.delete(urlQuizzes + quiz.id, httpOptions).subscribe();
   }
 
   setQuizzesFromUrl(): Quiz[] {
@@ -49,7 +52,7 @@ export class QuizService {
       this.quizzes$.next(this.quizzes);
       return this.quizzes;
     }); */
-    this.httpClient.get<Quiz[]>(this.quizzesUrlLocal).subscribe((quizzes) => {
+    this.httpClient.get<Quiz[]>(urlQuizzes).subscribe((quizzes) => {
       // quizzes.forEach(quiz => this.quizzes.push(quiz));
       this.quizzes = quizzes;
       this.quizzes$.next(this.quizzes);
