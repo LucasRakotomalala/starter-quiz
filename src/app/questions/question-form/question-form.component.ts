@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Question } from '../../../models/question.model';
-import { QuestionService } from '../../../services/question.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { QuizService } from '../../../services/quiz.service';
+import { Quiz } from 'src/models/quiz.model';
+import { Question } from 'src/models/question.model';
 
 @Component({
   selector: 'app-question-form',
@@ -9,13 +10,15 @@ import { QuestionService } from '../../../services/question.service';
   styleUrls: ['./question-form.component.scss']
 })
 export class QuestionFormComponent implements OnInit {
-  private questionForm: FormGroup;
 
-  constructor(public formBuilder: FormBuilder, public questionService: QuestionService) {
+  @Input()
+  quiz: Quiz;
+
+  public questionForm: FormGroup;
+
+  constructor(public formBuilder: FormBuilder, private quizService: QuizService) {
+    // Form creation
     this.initializeQuestionForm();
-  }
-
-  ngOnInit() {
   }
 
   private initializeQuestionForm() {
@@ -25,27 +28,29 @@ export class QuestionFormComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+  }
+
   get answers() {
     return this.questionForm.get('answers') as FormArray;
+  }
+
+  private createAnswer() {
+    return this.formBuilder.group({
+      value: '',
+      isCorrect: false,
+    });
   }
 
   addAnswer() {
     this.answers.push(this.createAnswer());
   }
 
-  private createAnswer() {
-    return this.formBuilder.group({
-      value: ['', Validators.required],
-      isCorrect: false,
-    });
-  }
-  private createQuestion() {
-    const questionToCreate: Question = this.questionForm.getRawValue() as Question;
+  addQuestion() {
     if (this.questionForm.valid) {
-      console.log('Adding question ..');
-
-      // Now, add your question in the list!
-      this.questionService.addQuestion(questionToCreate);
+      const question = this.questionForm.getRawValue() as Question;
+      this.quizService.addQuestion(this.quiz, question);
+      this.initializeQuestionForm();
     }
   }
 }

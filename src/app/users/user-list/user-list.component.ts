@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../../models/user.model';
 import {UserService} from '../../../services/user.service';
-import {Quiz} from '../../../models/quiz.model';
-import {urlQuizzes} from '../../../services/const';
 
 @Component({
   selector: 'app-user-list',
@@ -20,6 +18,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
   }
+
   deleteUser(selected: User) {
     this.userService.deleteUser(selected);
   }

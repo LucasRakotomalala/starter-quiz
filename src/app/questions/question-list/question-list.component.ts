@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Question } from '../../../models/question.model';
-import { QuestionService } from '../../../services/question.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { Quiz } from 'src/models/quiz.model';
+import { QuizService } from 'src/services/quiz.service';
+import { Question } from 'src/models/question.model';
 
 @Component({
   selector: 'app-question-list',
@@ -8,17 +9,15 @@ import { QuestionService } from '../../../services/question.service';
   styleUrls: ['./question-list.component.scss']
 })
 export class QuestionListComponent implements OnInit {
-
-  public questionList: Question[] = this.questionService.setQuestionsFromQuizzesUrl();
-
-  constructor(public questionService: QuestionService) {
-    this.questionService.questions$.subscribe((question) => this.questionList = question);
-  }
+  @Input()
+  quiz: Quiz;
+  constructor(private quizService: QuizService) { }
 
   ngOnInit() {
   }
 
-  deleteQuestion(selected: Question) {
-    this.questionService.deleteQuestion(selected);
+  deleteQuestion(question: Question) {
+    this.quizService.deleteQuestion(this.quiz, question);
   }
+
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { QuizService } from '../../../services/quiz.service';
 import { Quiz } from '../../../models/quiz.model';
 
@@ -11,19 +12,24 @@ export class QuizListComponent implements OnInit {
 
   public quizList: Quiz[] = [];
 
-  constructor(public quizService: QuizService) {
-    this.quizService.setQuizzesFromUrl();
-    this.quizService.quizzes$.subscribe((quiz) => this.quizList = quiz);
+  constructor(private router: Router, public quizService: QuizService) {
+    this.quizService.quizzes$.subscribe((quizzes: Quiz[]) => {
+      this.quizList = quizzes;
+    });
   }
 
   ngOnInit() {
   }
 
   quizSelected(selected: boolean) {
-    console.log('Event received from child:', selected);
+    console.log('event received from child:', selected);
   }
 
-  deleteQuiz(selected: Quiz) {
-    this.quizService.deleteQuiz(selected);
+  editQuiz(quiz: Quiz) {
+    this.router.navigate(['/edit-quiz/' + quiz.name]);
+  }
+
+  deleteQuiz(quiz: Quiz) {
+    this.quizService.deleteQuiz(quiz);
   }
 }

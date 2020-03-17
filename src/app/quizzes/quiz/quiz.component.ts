@@ -7,11 +7,15 @@ import { Quiz } from '../../../models/quiz.model';
   styleUrls: ['./quiz.component.scss']
 })
 export class QuizComponent implements OnInit {
+
   @Input()
   quiz: Quiz;
 
   @Output()
   quizSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  @Output()
+  quizEdited: EventEmitter<Quiz> = new EventEmitter<Quiz>();
 
   @Output()
   quizDeleted: EventEmitter<Quiz> = new EventEmitter<Quiz>();
@@ -24,6 +28,10 @@ export class QuizComponent implements OnInit {
 
   selectQuiz() {
     this.quizSelected.emit(true);
+  }
+
+  edit() {
+    this.quizEdited.emit(this.quiz);
   }
 
   deleteQuiz() {

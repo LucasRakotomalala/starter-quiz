@@ -13,8 +13,8 @@ export class UserFormComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder, public userService: UserService) {
     this.userForm = this.formBuilder.group( {
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required]
     });
   }
 

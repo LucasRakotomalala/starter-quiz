@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { QuizService } from '../../../services/quiz.service';
-import { Quiz } from '../../../models/quiz.model';
+import { Quiz } from 'src/models/quiz.model';
+import { QuizService } from 'src/services/quiz.service';
 
 @Component({
   selector: 'app-edit-quiz',
@@ -10,19 +10,15 @@ import { Quiz } from '../../../models/quiz.model';
 })
 export class EditQuizComponent implements OnInit {
 
-  @Input()
-  quiz: Quiz;
+  public quiz: Quiz;
 
   constructor(private route: ActivatedRoute, private quizService: QuizService) {
+    this.quizService.quizSelected$.subscribe((quiz) => this.quiz = quiz);
   }
 
   ngOnInit() {
-    this.getQuiz();
+    const id = this.route.snapshot.paramMap.get('id');
+    this.quizService.setSelectedQuiz(id);
   }
 
-  private getQuiz() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.quizService.getQuiz(id)
-      .subscribe(quiz => this.quiz = quiz);
-  }
 }
